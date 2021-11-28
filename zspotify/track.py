@@ -189,6 +189,7 @@ def download_track(mode: str, track_id: str, extra_keys={}, disable_progressbar=
 
                     if not ZSpotify.CONFIG.get_anti_ban_wait_time():
                         time.sleep(ZSpotify.CONFIG.get_anti_ban_wait_time())
+                    return filename_temp
         except Exception as e:
             Printer.print(PrintChannel.ERRORS, '###   SKIPPING: ' + song_name + ' (GENERAL DOWNLOAD ERROR)   ###')
             Printer.print(PrintChannel.ERRORS, str(e) + "\n")

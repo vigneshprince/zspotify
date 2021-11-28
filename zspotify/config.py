@@ -4,7 +4,7 @@ import sys
 from typing import Any
 from enum import Enum
 
-CONFIG_FILE_PATH = '../zs_config.json'
+CONFIG_FILE_PATH = '../../zspotify_config/zs_config.json'
 
 ROOT_PATH = 'ROOT_PATH'
 ROOT_PODCAST_PATH = 'ROOT_PODCAST_PATH'
@@ -44,7 +44,7 @@ CONFIG_VALUES = {
     LANGUAGE:                   { 'default': 'en',                    'type': str,  'arg': '--language'                   },
     BITRATE:                    { 'default': '',                      'type': str,  'arg': '--bitrate'                    },
     SONG_ARCHIVE:               { 'default': '.song_archive',         'type': str,  'arg': '--song-archive'               },
-    CREDENTIALS_LOCATION:       { 'default': 'credentials.json',      'type': str,  'arg': '--credentials-location'       },
+    CREDENTIALS_LOCATION:       { 'default': '../zspotify_config/credentials.json',      'type': str,  'arg': '--credentials-location'       },
     OUTPUT:                     { 'default': '',                      'type': str,  'arg': '--output'                     },
     PRINT_SPLASH:               { 'default': 'True',                  'type': bool, 'arg': '--print-splash'               },
     PRINT_SKIPS:                { 'default': 'True',                  'type': bool, 'arg': '--print-skips'                },
@@ -64,12 +64,11 @@ class Config:
     Values = {}
 
     @classmethod
-    def load(cls, args) -> None:
+    def load(cls) -> None:
         app_dir = os.path.dirname(__file__)
 
         config_fp = CONFIG_FILE_PATH
-        if args.config_location:
-            config_fp = args.config_location
+        
 
         true_config_file_path = os.path.join(app_dir, config_fp)
 
@@ -95,12 +94,9 @@ class Config:
 
         # Override config from commandline arguments
 
-        for key in CONFIG_VALUES:
-            if key.lower() in vars(args) and vars(args)[key.lower()] is not None:
-                cls.Values[key] = cls.parse_arg_value(key, vars(args)[key.lower()])
+        
 
-        if args.no_splash:
-            cls.Values[PRINT_SPLASH] = False
+        cls.Values[PRINT_SPLASH] = False
 
     @classmethod
     def get_default_json(cls) -> Any:

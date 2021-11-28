@@ -17,6 +17,7 @@ SEARCH_URL = 'https://api.spotify.com/v1/search'
 
 def client(args) -> None:
     """ Connects to spotify to perform query's and get songs to download """
+    print(args)
     ZSpotify(args)
 
     Printer.print(PrintChannel.SPLASH, splash())
@@ -64,7 +65,6 @@ def client(args) -> None:
 def download_from_urls(urls: list[str]) -> bool:
     """ Downloads from a list of spotify urls """
     download = False
-
     for spotify_url in urls:
         track_id, album_id, playlist_id, episode_id, show_id, artist_id = regex_input_for_urls(
             spotify_url)

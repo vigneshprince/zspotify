@@ -27,15 +27,15 @@ class ZSpotify:
     DOWNLOAD_QUALITY = None
     CONFIG: Config = Config()
 
-    def __init__(self, args):
-        ZSpotify.CONFIG.load(args)
+    def __init__(self):
+        ZSpotify.CONFIG.load()
         ZSpotify.login()
 
     @classmethod
     def login(cls):
         """ Authenticates with Spotify and saves credentials to a file """
 
-        cred_location = Config.get_credentials_location()
+        cred_location = 'zspotify_config/credentials.json'
 
         if os.path.isfile(cred_location):
             try:
